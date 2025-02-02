@@ -23,6 +23,7 @@ export const Footer = (props: Props) => {
                 <Stack direction="row" spacing={2}>
                     <input value={inputValue} type="text" placeholder="Что необходимо сделать"
                            className="form-control me-2"
+                           style={{ width: '700px', height: '40px', fontSize: '16px' }}
                            onChange={(e) => {
                                setInputValue(e.currentTarget.value)
                            }}/>

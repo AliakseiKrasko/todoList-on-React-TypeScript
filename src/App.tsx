@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {TasksLists} from './components/TasksLists';
 import {Header} from './components/Header';
 import {List} from './components/List';
 import {Footer} from './components/Footer';
-
-
+import {Search} from './components/Search';
 
 export type Task = {
     id: number;
@@ -14,24 +12,23 @@ export type Task = {
     done: boolean;
 };
 
-
 function App() {
-
     // Загружаем задачи из localStorage при первом рендере
     const initialTasks: Task[] = JSON.parse(localStorage.getItem('tasks') || '[]');
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
+    // Состояние для фильтра
+    const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
 
     // Сохраняем задачи в localStorage при изменении состояния
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
-
     const onToggleDone = (id: number) => {
         setTasks((prevTasks) =>
             prevTasks.map((task) =>
-                task.id === id ? { ...task, done: !task.done } : task
+                task.id === id ? {...task, done: !task.done} : task
             )
         );
     };
@@ -39,7 +36,7 @@ function App() {
     const onToggleImportant = (id: number) => {
         setTasks((prevTasks) =>
             prevTasks.map((task) =>
-                task.id === id ? { ...task, important: !task.important } : task
+                task.id === id ? {...task, important: !task.important} : task
             )
         );
     };
@@ -61,13 +58,17 @@ function App() {
         setTasks((prevTasks) => [newTask, ...prevTasks]);
     };
 
-
-
     return (
         <div className="todo-app">
             <Header doneCount={doneCount} todoCount={todoCount}/>
-            <List tasks={tasks} onToggleImportant={onToggleImportant} onToggleDone={onToggleDone}
-                  onDeleteTask={onDeleteTask}/>
+            <Search filter={filter} setFilter={setFilter}/>
+            <List
+                tasks={tasks}
+                filter={filter}
+                onToggleImportant={onToggleImportant}
+                onToggleDone={onToggleDone}
+                onDeleteTask={onDeleteTask}
+            />
             <Footer addTask={addTask}/>
         </div>
     );
