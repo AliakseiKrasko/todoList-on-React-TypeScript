@@ -2,14 +2,7 @@ import * as React from 'react';
 import './../App.css';
 import {Button, Stack} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-
-export type Task = {
-    id: number;
-    title: string;
-    important: boolean;
-    done: boolean;
-};
+import {Task} from '../App';
 
 
 type Props = {

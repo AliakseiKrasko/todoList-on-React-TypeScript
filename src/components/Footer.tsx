@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {useState} from 'react';
+import {Button, Stack} from '@mui/material';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 type Props = {
     addTask: (title: string) => void;
@@ -18,16 +20,17 @@ export const Footer = (props: Props) => {
 
         return (
             <div>
-                <footer className="footer">
+                <Stack direction="row" spacing={2}>
                     <input value={inputValue} type="text" placeholder="Что необходимо сделать"
                            className="form-control me-2"
                            onChange={(e) => {
                                setInputValue(e.currentTarget.value)
                            }}/>
-                    <button type="button" className="btn btn-primary" onClick={addTaskHundler}>
+                    <Button onClick={addTaskHundler} variant="contained" endIcon={<AddBoxIcon />}>
                         Добавить
-                    </button>
-                </footer>
+                    </Button>
+
+                </Stack>
             </div>
         );
     };

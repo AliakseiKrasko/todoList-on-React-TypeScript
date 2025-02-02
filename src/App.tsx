@@ -1,36 +1,55 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {TasksLists} from './components/TasksLists';
 import {Header} from './components/Header';
 import {List} from './components/List';
 import {Footer} from './components/Footer';
 
+
+
+export type Task = {
+    id: number;
+    title: string;
+    important: boolean;
+    done: boolean;
+};
+
+
 function App() {
 
-    const [tasks, setTasks] = useState([
-        {id: 0, title: 'Выпить кофе', important: false, done: false},
-        {id: 1, title: 'Сделать React приложение', important: true, done: false},
-        {id: 2, title: 'Позавтракать', important: false, done: true},
-    ])
+    // Загружаем задачи из localStorage при первом рендере
+    const initialTasks: Task[] = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const [tasks, setTasks] = useState<Task[]>(initialTasks);
+
+
+    // Сохраняем задачи в localStorage при изменении состояния
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
+
 
     const onToggleDone = (id: number) => {
-        setTasks(tasks.map(task =>
-            task.id === id ? {...task, done: !task.done} : task
-        ))
-
-    }
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === id ? { ...task, done: !task.done } : task
+            )
+        );
+    };
 
     const onToggleImportant = (id: number) => {
-        setTasks(tasks.map(task =>
-            task.id === id ? {...task, important: !task.important} : task))
-    }
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === id ? { ...task, important: !task.important } : task
+            )
+        );
+    };
 
     const onDeleteTask = (id: number) => {
-        setTasks(tasks.filter(task => task.id !== id))
-    }
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    };
 
-    const doneCount = tasks.filter(el => el.done).length
-    const todoCount = tasks.length - doneCount
+    const doneCount = tasks.filter((el) => el.done).length;
+    const todoCount = tasks.length - doneCount;
 
     const addTask = (title: string) => {
         const newTask = {
@@ -39,8 +58,9 @@ function App() {
             important: false,
             done: false,
         };
-        setTasks([newTask, ...tasks]);
+        setTasks((prevTasks) => [newTask, ...prevTasks]);
     };
+
 
 
     return (

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Task, TasksLists} from './TasksLists';
+import { TasksLists} from './TasksLists';
+import {Task} from '../App';
 
 type Props = {
     tasks: Task[];
