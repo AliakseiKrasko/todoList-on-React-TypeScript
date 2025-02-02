@@ -1,21 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
 
-    const tasks = [
+    const [tasks, setTasks] = useState([
         {id: 0, title: 'Выпить кофе', important: false, done: false},
         {id: 1, title: 'Сделать React приложение', important: true, done: false},
         {id: 2, title: 'Позавтракать', important: false, done: true},
-    ]
+    ])
 
     const onToggleDone = (id: number) => {
-        const newTask = tasks.filter((task) => task.id !== id)
-        console.log(newTask)
+        setTasks(tasks.map(task =>
+            task.id === id ? {...task, done: !task.done} : task
+        ))
+
     }
 
     const onToggleImportant = (id: number) => {
-        tasks[id].important = !tasks[id].important;
+        setTasks(tasks.map(task =>
+        task.id === id ? {...task, important: !task.important} : task))
     }
 
 
@@ -35,14 +38,14 @@ function App() {
                     return (
                         <li key={task.id} className={classNames}>
               <span
-                  onClick={() => onToggleDone(task.id)}
+                  onClick={() => onToggleImportant(task.id)}
                   className="todo-item-text"
               >
                 {task.title}
               </span>
                             <div className="btn-group">
                                 <button
-                                    onClick={() => onToggleImportant(task.id)}
+                                    onClick={() => onToggleDone(task.id)}
                                     role="button"
                                     className="btn btn-outline-dark btn-sm"
                                 >
