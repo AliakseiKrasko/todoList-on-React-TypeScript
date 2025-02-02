@@ -4,9 +4,10 @@ import {Header} from './components/Header';
 import {List} from './components/List';
 import {Footer} from './components/Footer';
 import {Search} from './components/Search';
+import {v1} from 'uuid';
 
 export type Task = {
-    id: number;
+    id: string;
     title: string;
     important: boolean;
     done: boolean;
@@ -25,7 +26,7 @@ function App() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
-    const onToggleDone = (id: number) => {
+    const onToggleDone = (id: string) => {
         setTasks((prevTasks) =>
             prevTasks.map((task) =>
                 task.id === id ? {...task, done: !task.done} : task
@@ -33,7 +34,7 @@ function App() {
         );
     };
 
-    const onToggleImportant = (id: number) => {
+    const onToggleImportant = (id: string) => {
         setTasks((prevTasks) =>
             prevTasks.map((task) =>
                 task.id === id ? {...task, important: !task.important} : task
@@ -41,7 +42,7 @@ function App() {
         );
     };
 
-    const onDeleteTask = (id: number) => {
+    const onDeleteTask = (id: string) => {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     };
 
@@ -50,7 +51,7 @@ function App() {
 
     const addTask = (title: string) => {
         const newTask = {
-            id: tasks.length,
+            id: v1(),
             title,
             important: false,
             done: false,

@@ -5,9 +5,9 @@ import {Task} from '../App';
 type Props = {
     tasks: Task[];
     filter: 'all' | 'active' | 'completed';
-    onToggleImportant: (id: number) => void;
-    onToggleDone: (id: number) => void;
-    onDeleteTask: (id: number) => void;
+    onToggleImportant: (id: string) => void;
+    onToggleDone: (id: string) => void;
+    onDeleteTask: (id: string) => void;
 };
 
 

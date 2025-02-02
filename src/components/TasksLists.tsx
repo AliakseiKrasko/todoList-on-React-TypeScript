@@ -7,9 +7,9 @@ import {Task} from '../App';
 
 type Props = {
     task: Task;
-    onToggleImportant: (id: number) => void;
-    onToggleDone: (id: number) => void;
-    onDeleteTask: (id: number) => void;
+    onToggleImportant: (id: string) => void;
+    onToggleDone: (id: string) => void;
+    onDeleteTask: (id: string) => void;
 };
 export const TasksLists = ({task, onToggleImportant, onToggleDone, onDeleteTask}: Props) => {
     let classNames = 'todo-item';
