@@ -12,8 +12,9 @@ type Props = {
     tasks: Task[];
     onToggleImportant: (id: number) => void;
     onToggleDone: (id: number) => void;
+    onDeleteTask: (id: number) => void;
 };
-export const TasksLists = ( { tasks, onToggleImportant, onToggleDone }: Props ) => {
+export const TasksLists = ( { tasks, onToggleImportant, onToggleDone, onDeleteTask }: Props ) => {
     return (
         <div>
             <ul>
@@ -43,7 +44,11 @@ export const TasksLists = ( { tasks, onToggleImportant, onToggleDone }: Props ) 
                                 >
                                     Важное
                                 </button>
-                                <button role="button" className="btn btn-outline-danger btn-sm">
+                                <button
+                                    onClick={() => onDeleteTask(task.id)}
+                                    role="button"
+                                    className="btn btn-outline-danger btn-sm">
+
                                     Удалить
                                 </button>
                             </div>

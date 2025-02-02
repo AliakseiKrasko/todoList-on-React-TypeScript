@@ -22,10 +22,14 @@ function App() {
         task.id === id ? {...task, important: !task.important} : task))
     }
 
+    const onDeleteTask = (id: number) => {
+        setTasks(tasks.filter(task => task.id !== id))
+    }
+
 
     return (
         <div>
-           < TasksLists tasks={tasks} onToggleImportant={onToggleImportant} onToggleDone={onToggleDone} />
+           < TasksLists tasks={tasks} onToggleImportant={onToggleImportant} onToggleDone={onToggleDone} onDeleteTask={onDeleteTask}/>
         </div>
     );
 }
