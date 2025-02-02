@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
+import {TasksLists} from './components/TasksLists';
 
 function App() {
 
@@ -24,41 +25,7 @@ function App() {
 
     return (
         <div>
-            <ul>
-                {tasks.map((task) => {
-                    // Формируем классы для конкретной задачи
-                    let classNames = 'todo-item';
-                    if (task.important) {
-                        classNames += ' important';
-                    }
-                    if (task.done) {
-                        classNames += ' done';
-                    }
-
-                    return (
-                        <li key={task.id} className={classNames}>
-              <span
-                  onClick={() => onToggleImportant(task.id)}
-                  className="todo-item-text"
-              >
-                {task.title}
-              </span>
-                            <div className="btn-group">
-                                <button
-                                    onClick={() => onToggleDone(task.id)}
-                                    role="button"
-                                    className="btn btn-outline-dark btn-sm"
-                                >
-                                    Важное
-                                </button>
-                                <button role="button" className="btn btn-outline-danger btn-sm">
-                                    Удалить
-                                </button>
-                            </div>
-                        </li>
-                    );
-                })}
-            </ul>
+           < TasksLists tasks={tasks} onToggleImportant={onToggleImportant} onToggleDone={onToggleDone} />
         </div>
     );
 }
