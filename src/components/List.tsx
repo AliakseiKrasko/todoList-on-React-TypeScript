@@ -22,7 +22,7 @@ export const List = ({tasks, onToggleImportant, onToggleDone, onDeleteTask}: Pro
     );
     return (
         <div>
-            <ul className="todo-list">{tasks.length > 0 ? render : emptyList}</ul>;
+            <ul className="todo-list">{tasks.length > 0 ? render : emptyList}</ul>
         </div>
     );
 };

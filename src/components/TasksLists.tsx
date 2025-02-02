@@ -1,5 +1,8 @@
 import * as React from 'react';
 import './../App.css';
+import {Button, Stack} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export type Task = {
     id: number;
@@ -28,22 +31,20 @@ export const TasksLists = ({task, onToggleImportant, onToggleDone, onDeleteTask}
       <span onClick={() => onToggleDone(task.id)} className="todo-item-text">
         {task.title}
       </span>
-            <div className="btn-group">
-                <button
-                    onClick={() => onToggleImportant(task.id)}
-                    role="button"
-                    className="btn btn-outline-dark btn-sm"
-                >
-                    Важное
-                </button>
-                <button
-                    onClick={() => onDeleteTask(task.id)}
-                    role="button"
-                    className="btn btn-outline-danger btn-sm"
-                >
+            <Stack direction="row" spacing={2}>
+                <Button onClick={() => onToggleImportant(task.id)}
+                        role="button"
+                        className="btn btn-outline-dark btn-sm"
+                        variant="contained">Важное
+                </Button>
+                <Button onClick={() => onDeleteTask(task.id)}
+                        role="button"
+                        className="btn btn-outline-danger btn-sm"
+                        variant="outlined" color="error" startIcon={<DeleteIcon />}>
                     Удалить
-                </button>
-            </div>
+                </Button>
+
+            </Stack>
         </li>
     )
 };

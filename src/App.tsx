@@ -44,7 +44,7 @@ function App() {
 
 
     return (
-        <div>
+        <div className="todo-app">
             <Header doneCount={doneCount} todoCount={todoCount}/>
             <List tasks={tasks} onToggleImportant={onToggleImportant} onToggleDone={onToggleDone}
                   onDeleteTask={onDeleteTask}/>
