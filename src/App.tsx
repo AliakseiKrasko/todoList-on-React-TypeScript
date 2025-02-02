@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import './App.css';
 import {TasksLists} from './components/TasksLists';
+import {Header} from './components/Header';
+import {List} from './components/List';
+import {Footer} from './components/Footer';
 
 function App() {
 
@@ -19,17 +22,33 @@ function App() {
 
     const onToggleImportant = (id: number) => {
         setTasks(tasks.map(task =>
-        task.id === id ? {...task, important: !task.important} : task))
+            task.id === id ? {...task, important: !task.important} : task))
     }
 
     const onDeleteTask = (id: number) => {
         setTasks(tasks.filter(task => task.id !== id))
     }
 
+    const doneCount = tasks.filter(el => el.done).length
+    const todoCount = tasks.length - doneCount
+
+    const addTask = (title: string) => {
+        const newTask = {
+            id: tasks.length,
+            title,
+            important: false,
+            done: false,
+        };
+        setTasks([newTask, ...tasks]);
+    };
+
 
     return (
         <div>
-           < TasksLists tasks={tasks} onToggleImportant={onToggleImportant} onToggleDone={onToggleDone} onDeleteTask={onDeleteTask}/>
+            <Header doneCount={doneCount} todoCount={todoCount}/>
+            <List tasks={tasks} onToggleImportant={onToggleImportant} onToggleDone={onToggleDone}
+                  onDeleteTask={onDeleteTask}/>
+            <Footer addTask={addTask}/>
         </div>
     );
 }

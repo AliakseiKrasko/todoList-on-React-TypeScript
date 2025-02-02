@@ -1,6 +1,7 @@
 import * as React from 'react';
+import './../App.css';
 
-type Task = {
+export type Task = {
     id: number;
     title: string;
     important: boolean;
@@ -9,53 +10,40 @@ type Task = {
 
 
 type Props = {
-    tasks: Task[];
+    task: Task;
     onToggleImportant: (id: number) => void;
     onToggleDone: (id: number) => void;
     onDeleteTask: (id: number) => void;
 };
-export const TasksLists = ( { tasks, onToggleImportant, onToggleDone, onDeleteTask }: Props ) => {
+export const TasksLists = ({task, onToggleImportant, onToggleDone, onDeleteTask}: Props) => {
+    let classNames = 'todo-item';
+    if (task.important) {
+        classNames += ' important';
+    }
+    if (task.done) {
+        classNames += ' done';
+    }
     return (
-        <div>
-            <ul>
-                {tasks.map((task) => {
-                    // Формируем классы для конкретной задачи
-                    let classNames = 'todo-item';
-                    if (task.important) {
-                        classNames += ' important';
-                    }
-                    if (task.done) {
-                        classNames += ' done';
-                    }
-
-                    return (
-                        <li key={task.id} className={classNames}>
-              <span
-                  onClick={() => onToggleDone(task.id)}
-                  className="todo-item-text"
-              >
-                {task.title}
-              </span>
-                            <div className="btn-group">
-                                <button
-                                    onClick={() => onToggleImportant(task.id)}
-                                    role="button"
-                                    className="btn btn-outline-dark btn-sm"
-                                >
-                                    Важное
-                                </button>
-                                <button
-                                    onClick={() => onDeleteTask(task.id)}
-                                    role="button"
-                                    className="btn btn-outline-danger btn-sm">
-
-                                    Удалить
-                                </button>
-                            </div>
-                        </li>
-                    );
-                })}
-            </ul>
-        </div>
-    );
+        <li key={task.id} className={classNames}>
+      <span onClick={() => onToggleDone(task.id)} className="todo-item-text">
+        {task.title}
+      </span>
+            <div className="btn-group">
+                <button
+                    onClick={() => onToggleImportant(task.id)}
+                    role="button"
+                    className="btn btn-outline-dark btn-sm"
+                >
+                    Важное
+                </button>
+                <button
+                    onClick={() => onDeleteTask(task.id)}
+                    role="button"
+                    className="btn btn-outline-danger btn-sm"
+                >
+                    Удалить
+                </button>
+            </div>
+        </li>
+    )
 };
